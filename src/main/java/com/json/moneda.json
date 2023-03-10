@@ -1,0 +1,26 @@
+[
+   {
+      "nombre": "USD",
+      "valor": 1
+   },
+
+   {
+      "nombre": "EUR",
+      "valor": 0.94
+   },
+
+   {
+      "nombre": "ARG",
+      "valor": 200.74
+   },
+
+   {
+      "nombre": "COP",
+      "valor": 4718.63
+   },
+
+   {
+      "nombre": "MXN",
+      "valor": 18.49
+   }
+]
