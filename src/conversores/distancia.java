@@ -1,4 +1,4 @@
-package main.java.com.conversores;
+package conversores;
 
 public class distancia extends conversorBase{
    private unidadDistancia unidadActual;
