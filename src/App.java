@@ -10,19 +10,18 @@ import java.awt.MouseInfo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Cursor.*;
+import java.util.Collection;
 import java.awt.Point;
-/**
- * Hello world!
- *
- */
+import java.util.*;
+
 public class App {
     public static void main(String[] args){
         //GUI();
 
         Point mousePosition = MouseInfo.getPointerInfo().getLocation();
-        mainframe main = new mainframe(mousePosition.x, mousePosition.y);
-        main.setVisible(true);  
-        main.pack();
+        Dimension Tamano = new Dimension(900, 800);
+        mainframe main = new mainframe(mousePosition, Tamano);
+        main.showGUI();
 
         //distanciaFrame DFrame = new distanciaFrame();
         /*

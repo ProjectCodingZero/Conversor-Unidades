@@ -5,33 +5,28 @@ public abstract class conversorBase {
    
    private String nombre;
    private double unidad;
-   
-   protected final void setNombre(String nombre){
+   private int indice;
+   public final void setNombre(String nombre){
       this.nombre = nombre;
    }
-   protected final String getNombre(){
+   public final String getNombre(){
       return this.nombre;
    }
 
    protected final void setUnidad(double unidad){
       this.unidad = unidad;
    }
-   protected final double getUnidad(){
+   public final double getUnidad(){
       return this.unidad;
    }
-   
+   public final void setIndice(int indice){
+      this.indice = indice;
+   }
+   public final int getIndice(){
+      return this.indice;
+   }
 	public abstract void cambiarUnidad(String unidad);
-   public final static double convertirUnidad(conversorBase unidadDesde,conversorBase unidadHasta, double unidad){
-      DecimalFormat redondeo = new DecimalFormat("#.###");
-      if(unidadDesde.getUnidad() > unidadHasta.getUnidad()){
-         return Double.valueOf(redondeo.format(unidad * 
-         unidadDesde.getUnidad() * unidadHasta.getUnidad()));  
-      }
-      else{
-         return Double.valueOf(redondeo.format(unidad * 
-         unidadDesde.getUnidad() / unidadHasta.getUnidad()));  
-      }
-	}
+   public abstract double convertirUnidad(conversorBase unidadHasta, double unidad);
 
    protected abstract void unidadEstablecida();
 }
