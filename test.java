@@ -1,8 +1,17 @@
+import java.Collection.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class test {
+    final static List<List<Integer>> ejemplo = new ArrayList<List<Integer>>(){
+        {
+            add(new ArrayList<>());
+            add(new LinkedList<>());
+        }
+    };
     public static void main(String[] args) {
-        ObjectStreamClass c = ObjectStreamClass.lookup(MyClass.class);
-        long serialID = c.getSerialVersionUID();
-        System.out.println(serialID);
+        for(List<Integer> lista : ejemplo){
+            System.out.println();
+        }
     }
 }

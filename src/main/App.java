@@ -1,11 +1,8 @@
-
-import components.distanciaFrame;
 import components.mainframe;
-import conversores.*;
 
 
 import javax.swing.JFrame;
-
+import java.awt.event.*;
 import java.awt.MouseInfo;
 import javax.swing.*;
 import java.awt.*;
@@ -14,15 +11,21 @@ import java.util.Collection;
 import java.awt.Point;
 import java.util.*;
 
+
 public class App {
+    public static String[] Frames = {"mainFrame", "distanciaFrame"};
+    public static String Frame;
     public static void main(String[] args){
-        //GUI();
-
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
         Point mousePosition = MouseInfo.getPointerInfo().getLocation();
-        Dimension Tamano = new Dimension(900, 800);
+        Dimension Tamano = new Dimension(260, 300);
         mainframe main = new mainframe(mousePosition, Tamano);
+        main.menuAdding();
         main.showGUI();
-
         //distanciaFrame DFrame = new distanciaFrame();
         /*
         distancia metros2 = new distancia("milimetros");
@@ -36,18 +39,10 @@ public class App {
         //distancia metros1 = new distancia("metros");
         
     }
-    private static void GUI(){
-        JFrame frame = new JFrame("Conversor");
-        ImageIcon menuIcon = 
-        new ImageIcon("src\\components\\images\\menuIcon.png");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setIconImage(menuIcon.getImage());
-        //Obtener la posicion del menu
-        
+    private static void menuAdding(JFrame frame){  
 
-        MenuBar menuBar = new MenuBar();
+      MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("Conversores");
-        
         MenuItem distanciaItem = new MenuItem("Distancia");
         MenuItem saveItem = new MenuItem("Save");
         MenuItem exitItem = new MenuItem("Exit");

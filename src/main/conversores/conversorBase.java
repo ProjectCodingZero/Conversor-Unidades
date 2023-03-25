@@ -26,7 +26,7 @@ public abstract class conversorBase {
       return this.indice;
    }
 	public abstract void cambiarUnidad(String unidad);
-   public abstract double convertirUnidad(conversorBase unidadHasta, double unidad);
+   public abstract String convertirUnidad(conversorBase unidadHasta, double unidad);
 
    protected abstract void unidadEstablecida();
 }
