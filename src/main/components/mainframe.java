@@ -11,7 +11,7 @@ public final class mainframe extends JFrame implements GUI{
    private JButton buttonAceptar;
    private JComboBox<String> JCBConversores;
    private String[] Conversores = {"Conversor Distancia"};
-   private ImageIcon menuIcon = new ImageIcon("src\\resourses\\menuIcon.png");
+   private ImageIcon menuIcon = new ImageIcon("src\\main\\resources\\menuIcon.png");
    
    public mainframe(Point posicion, Dimension tamano) {
       super("Menu");

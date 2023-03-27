@@ -10,8 +10,7 @@ import java.awt.event.*;
 
 public final class distanciaFrame extends JFrame implements GUI, ActionListener{
    private static final long serialVersionUID = 160320230208L;
-   private ImageIcon moneyIcon  = new ImageIcon("src\\resourses\\metericon.png");
-   private ImageIcon menuTexture = new ImageIcon("src\\resourses\\texturamenu.jpg");
+   private ImageIcon meterIcon  = new ImageIcon("src\\main\\resources\\metericon.png");
    private JPanel distanciaPanel;
    private FlowLayout layoutManager = new FlowLayout(FlowLayout.LEFT, 25 , 50);
    private JPanel card1, card2;
@@ -38,13 +37,13 @@ public final class distanciaFrame extends JFrame implements GUI, ActionListener{
       
       super("Conversor de distancia");
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      setIconImage(moneyIcon.getImage());     
+      setIconImage(meterIcon.getImage());     
       //TODO: agregar un action listener para cambiar a la abreviacion
       /*
-       abrirComboBox = new ActionListener() {
-         public void ActionEvent(javax.awt.ActionEvent e){
+      abrirComboBox = new ActionListener() {
+      public void ActionEvent(javax.awt.ActionEvent e){
 
-         }
+      }
       };
       */
       distanciaPanel = new JPanel(layoutManager);

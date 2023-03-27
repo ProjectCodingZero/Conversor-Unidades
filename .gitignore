@@ -4,3 +4,6 @@
 *.class
 *.jar
 target/
+*.ico
+*.png
+*.json

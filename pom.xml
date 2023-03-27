@@ -9,26 +9,68 @@
   <url>http://maven.apache.org</url>
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
   </properties>
-<build>
-  <sourceDirectory>src/main</sourceDirectory>
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-jar-plugin</artifactId>
-      <version>3.3.0</version>
-      <configuration>
-        <outputDirectory>${project.basedir}/target</outputDirectory>
-        <archive>
-          <manifest>
-            <addClassPath>true</addClassPath>
-            <mainClass>com.main.App</mainClass>
-          </manifest>
-        </archive>
-      </configuration>
+  <build>
+    <sourceDirectory>src/main</sourceDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <outputDirectory>${project.basedir}/target</outputDirectory>
+          <archive>
+            <manifest>
+              <addClassPath>true</addClassPath>
+              <mainClass>com.main.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+            <execution>
+                <id>create-executable</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+                <configuration>
+                    <executable>javapackager</executable>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                    <arguments>
+                        <argument>-deploy</argument>
+                        <argument>-native</argument>
+                        <argument>-outdir</argument>
+                        <argument>${project.build.directory}/package</argument>
+                        <argument>-outfile</argument>
+                        <argument>${project.artifactId}</argument>
+                        <argument>-srcdir</argument>
+                        <argument>${project.build.directory}/classes</argument>
+                        <argument>-srcfiles</argument>
+                        <argument>${project.build.finalName}.jar</argument>
+                        <argument>-appclass</argument>
+                        <argument>${project.mainClass}</argument>
+                        <argument>-name</argument>
+                        <argument>${project.name}</argument>
+                        <argument>-title</argument>
+                        <argument>${project.name}</argument>
+                        <argument>
+                          -Bicon=${project.basedir}/resources/icon.ico
+                        </argument>
+                    </arguments>
+                </configuration>
+            </execution>
+        </executions>
     </plugin>
-  </plugins>
-</build>
+    </plugins>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -53,6 +95,12 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>2.14.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>exec-maven-plugin</artifactId>
+      <version>1.6.0</version>
     </dependency>
   </dependencies>
   

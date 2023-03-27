@@ -1,5 +1,4 @@
 package conversores;
-import java.text.DecimalFormat;
 
 public abstract class conversorBase {
    
