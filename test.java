@@ -15,3 +15,7 @@ public class test {
         }
     }
 }
+
+https://www.digitalocean.com/community/tutorials/jackson-json-java-parser-api-example-tutorial
+
+https://www.digitalocean.com/community/tutorials/jackson-json-java-parser-api-example-tutorial

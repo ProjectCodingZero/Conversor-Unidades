@@ -1,5 +1,5 @@
-package components;
-import conversores.*;
+package main.components;
+import main.conversores.*;
 
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;

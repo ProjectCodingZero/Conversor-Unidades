@@ -1,4 +1,4 @@
-package conversores;
+package main.conversores;
 
 public abstract class conversorBase {
    
@@ -12,12 +12,14 @@ public abstract class conversorBase {
       return this.nombre;
    }
 
-   protected final void setUnidad(double unidad){
+   public void setUnidad(double unidad){
       this.unidad = unidad;
    }
-   public final double getUnidad(){
+   public double getUnidad(){
       return this.unidad;
    }
+
+   //TODO borrar
    public final void setIndice(int indice){
       this.indice = indice;
    }

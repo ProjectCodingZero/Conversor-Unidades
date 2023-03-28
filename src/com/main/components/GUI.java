@@ -1,7 +1,4 @@
-package components;
-
-import javax.swing.JButton;
-
+package main.components;
 public interface GUI{
    public boolean Visible = true;
    public void showGUI();

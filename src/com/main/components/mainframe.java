@@ -1,9 +1,9 @@
-package components;
+package main.components;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import main.json.monedaJSON;
 public final class mainframe extends JFrame implements GUI{
    public static final long serialVersionUID = 160320230150L;
    private JPanel mainpanel;
@@ -11,6 +11,7 @@ public final class mainframe extends JFrame implements GUI{
    private JButton buttonAceptar;
    private JComboBox<String> JCBConversores;
    private String[] Conversores = {"Conversor Distancia"};
+   //private String[] Conversores = {monedaJSON.ArrayMoneda.get(0).getNombre(), monedaJSON.ArrayMoneda.get(1).getNombre()};
    private ImageIcon menuIcon = new ImageIcon("src\\main\\resources\\menuIcon.png");
    
    public mainframe(Point posicion, Dimension tamano) {

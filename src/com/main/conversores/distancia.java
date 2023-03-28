@@ -1,4 +1,4 @@
-package conversores;
+package main.conversores;
 
 import java.lang.Math;
 import java.text.DecimalFormat;
@@ -12,14 +12,18 @@ public final class distancia extends conversorBase{
    //La unidad actual representa cual es la unidad que se esta usando
    private unidadDistancia unidadActual;
    //Unidad nombre completo con su anotacion
-   private final static unidadDistancia[] unidadEnum = unidadDistancia.values();
-   private final static unidadDistancia.unidadAsociada[] unidadAsociada = 
-   unidadDistancia.unidadAsociada.values();
+   private final static unidadDistancia[] unidadEnum;
+   private final static unidadDistancia.unidadAsociada[] unidadAsociada;
 
    //Hacer todo el enum unidadDistancia como un arreglo
-   public final static String[] unidadesArray = enumArreglado();
-   public final static HashMap<String, String> unidadMap = obtenerUnidadCompleta();
-
+   public final static String[] unidadesArray;
+   public final static HashMap<String, String> unidadMap;
+   static{
+      unidadEnum = unidadDistancia.values();
+      unidadAsociada = unidadDistancia.unidadAsociada.values();
+      unidadesArray = enumArreglado();
+      unidadMap = obtenerUnidadCompleta();
+   }
    public distancia(){
       this("metros");
       this.unidadEstablecida();
@@ -127,11 +131,12 @@ public final class distancia extends conversorBase{
    }
    private static HashMap<String, String> obtenerUnidadCompleta(){
       if(unidadEnum.length != unidadAsociada.length){
-         RuntimeException excepcion  = new EnumInigualesExcepcion("Los enums no son iguales");
+         EnumInigualesExcepcion excepcion  = new EnumInigualesExcepcion("Los enums no son iguales");
          throw excepcion;
       }
-      HashMap<String, String> Maping = new HashMap<String, String>();
+      HashMap<String, String> Maping = new HashMap<>();
       for(int i = 0; i < unidadEnum.length; i++){
+         
          Maping.put(unidadEnum[i].name(), unidadAsociada[i].name());
       }
       return Maping;

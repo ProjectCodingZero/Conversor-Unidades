@@ -1,4 +1,4 @@
-package conversores;
+package main.conversores;
 
 public final class EnumInigualesExcepcion extends RuntimeException{
    EnumInigualesExcepcion(String msg){

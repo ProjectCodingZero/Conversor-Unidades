@@ -1,6 +1,7 @@
-package json;
 
-import conversores.moneda;
+package main.json;
+
+import main.conversores.moneda;
 
 public class monedaClase {
    private String nombre;
@@ -45,7 +46,6 @@ public class monedaClase {
    @Override
 	public String toString(){
       StringBuilder sb = new StringBuilder();
-      sb.append("***Unidad***\n");
       sb.append(this.nombre + " {\n");
       sb.append("abreviatura: " + this.abreviatura + "\n");
       sb.append("unidad: " + this.unidad + "\n");

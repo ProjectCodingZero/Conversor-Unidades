@@ -1,5 +1,11 @@
-
-
+/**
+ * 
+ */
+/**
+ * @author ProjectCodingZero
+ *
+ */
+package main;
 
 import javax.swing.JFrame;
 import java.awt.event.*;
@@ -12,30 +18,30 @@ import java.util.Collection;
 import java.awt.Point;
 import java.util.*;
 
-import components.mainframe;
-import conversores.moneda;
-import json.monedaClase;
-import json.monedaJSON;
+
+import main.components.mainframe;
+import main.conversores.moneda;
+import main.json.monedaClase;
+import main.json.monedaJSON;
+
+import java.util.logging.Logger;
+import java.util.logging.FileHandler;
 
 public class App {
+    public static final Logger LOGGER = Logger.getLogger(App.class.getName());
+    public static FileHandler fileHandler;
     public static String[] Frames = {"mainFrame", "distanciaFrame"};
     public static String Frame;
     public static void main(String[] args){
-      ArrayList<monedaClase> monedas = new ArrayList<>();
-      monedaClase moneda1 = new monedaClase();
-      moneda1.setAbreviatura("USD");
-      moneda1.setNombre("Dolar estadounidense");
-      moneda1.setUnidad(1);
-
-      monedaClase moneda2 = new monedaClase();
-      moneda2.setAbreviatura("EUR");
-      moneda2.setNombre("Euro estadoudense");
-      moneda2.setUnidad(2);
-      
-      monedas.add(moneda1);
-      monedas.add(moneda2);
-      monedaJSON.protoName(monedas);
-      System.out.println(monedaJSON.MapaMoneda);
+      try{
+        fileHandler = new FileHandler("myapp.log");
+      }catch(IOException E){
+        LOGGER.severe("No se pudo crear el archivo");
+      }
+      System.out.println(monedaJSON.ArrayMoneda);
+      LOGGER.addHandler(fileHandler);
+      //System.out.println(monedaJSON.readSpecifyJson(moneda.getNombre()));
+      //System.out.println(monedaJSON.MapaMoneda);
       try {
           UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
       }catch (Exception ex) {
