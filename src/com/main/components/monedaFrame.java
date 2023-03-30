@@ -19,7 +19,7 @@ public class monedaFrame extends JFrame implements GUI, ActionListener{
 
    private JLabel labelUnidad1, labelUnidad2;
    private JComboBox<String> cbUnidades1, cbUnidades2;
-   private JButton JBConvertir;
+   private JButton JBConvertir, JBVolver;
    private JTextField ConvertirBase;
    private JTextField ConvertirNuevo;
    private Color textLabelColor = new Color(98, 16, 205);
@@ -107,7 +107,21 @@ public class monedaFrame extends JFrame implements GUI, ActionListener{
             catch(NumberFormatException numberExcepcion){
                numberExcepcion.getStackTrace();
                }
+               JBVolver.setVisible(true);
             }
+            
+      });
+      JBVolver = new JButton("Volver");
+      JBConvertir.addActionListener(new  ActionListener() {
+         public void actionPerformed(ActionEvent tocarBoton){
+            Point ubicacion = new Point(getLocation());
+            Dimension dimensiones = new Dimension(getSize());
+            dispose();
+            JOptionPane.showMessageDialog(null, "Volviendo al menu principal", "Volver", JOptionPane.INFORMATION_MESSAGE);
+            mainframe Mainframe = new mainframe(ubicacion, dimensiones);
+            Mainframe.menuAdding();
+            Mainframe.showGUI();
+         }
       });
       monedaPanel.setPreferredSize(tamano);
       monedaPanel.setLocation(posicion);
@@ -123,6 +137,7 @@ public class monedaFrame extends JFrame implements GUI, ActionListener{
 
       layoutManager.setAlignment(FlowLayout.TRAILING);
       monedaPanel.add(JBConvertir);
+      monedaPanel.add(JBVolver);
 
    }
    

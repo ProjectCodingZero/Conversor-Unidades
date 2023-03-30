@@ -7,25 +7,12 @@
  */
 package main;
 
-import javax.swing.JFrame;
-import java.awt.event.*;
-import java.io.IOException;
 import java.awt.MouseInfo;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Cursor.*;
-import java.util.Collection;
 import java.awt.Point;
-import java.util.*;
-import java.net.*;
-import java.io.File;
 import main.components.mainframe;
-import main.conversores.moneda;
-import main.json.monedaClase;
-import main.json.monedaJSON;
 
-import java.util.logging.Logger;
-import java.util.logging.FileHandler;
 
 public class App {
     public static final String[] Conversores = {"Conversor Distancia", "Conversor Moneda"};

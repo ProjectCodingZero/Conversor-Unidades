@@ -8,7 +8,6 @@ import java.text.DecimalFormat;
 //Monedas basadas en dolar
 public final class moneda extends conversorBase{
 	public static HashMap<String, String> monedaRelacion = NombreAndAbreviatura();
-	private String abreviatura; 
 
 
 	public moneda(){
@@ -36,15 +35,14 @@ public final class moneda extends conversorBase{
 	protected void unidadEstablecida(){
 		monedaClase moneda = monedaJSON.MapaMonedas.get(this.getNombre());
 		super.setUnidad(moneda.getUnidad());
-		abreviatura = moneda.getAbreviatura();
 	}
 	@Override
 	public String convertirUnidad(conversorBase unidadHasta, double unidad){
-      	double MonedaBase = 1 / unidadHasta.getUnidad();
+		double MonedaBase = 1 / unidadHasta.getUnidad();
 		double unidadConvertida = unidad * MonedaBase * this.getUnidad();
 		DecimalFormat df = new DecimalFormat("#.####");
 		return df.format(unidadConvertida);
-    }
+   }
 	@Override
 	public void cambiarUnidad(String nombre){
 		super.setNombre(nombre);

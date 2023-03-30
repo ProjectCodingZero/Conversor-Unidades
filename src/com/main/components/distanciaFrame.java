@@ -19,7 +19,7 @@ public final class distanciaFrame extends JFrame implements GUI, ActionListener{
    
    private JLabel labelUnidad1, labelUnidad2;
    private JComboBox<String> cbUnidades1, cbUnidades2;
-   private JButton JBConvertir;
+   private JButton JBConvertir, JBVolver;
    private JTextField ConvertirBase;
    private JTextField ConvertirNuevo;
    private Color textLabelColor = new Color(98, 16, 205);
@@ -97,9 +97,21 @@ public final class distanciaFrame extends JFrame implements GUI, ActionListener{
             catch(NumberFormatException numberExcepcion){
                numberExcepcion.getStackTrace();
                }
+               JBVolver.setVisible(true);
             }
       });
-
+      JBVolver = new JButton("Volver");
+      JBConvertir.addActionListener(new  ActionListener() {
+         public void actionPerformed(ActionEvent tocarBoton){
+            Point ubicacion = new Point(getLocation());
+            Dimension dimensiones = new Dimension(getSize());
+            dispose();
+            JOptionPane.showMessageDialog(null, "Volviendo al menu principal", "Volver", JOptionPane.INFORMATION_MESSAGE);
+            mainframe Mainframe = new mainframe(ubicacion, dimensiones);
+            Mainframe.menuAdding();
+            Mainframe.showGUI();
+         }
+      });
       //distanciaPanel.add(labelUnidad1);
       distanciaPanel.setLocation(posicion);
       distanciaPanel.setPreferredSize(tamano);
@@ -115,7 +127,7 @@ public final class distanciaFrame extends JFrame implements GUI, ActionListener{
 
       layoutManager.setAlignment(FlowLayout.TRAILING);
       distanciaPanel.add(JBConvertir);
-      
+      distanciaPanel.add(JBVolver);
    }
    
    public void actionPerformed(java.awt.event.ActionEvent e) {

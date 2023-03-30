@@ -13,8 +13,7 @@ import java.io.InputStream;
 import java.io.FileInputStream;
 import java.nio.file.Path;
 
-//TODO: Borrar
-import java.nio.charset.StandardCharsets;
+//import java.nio.charset.StandardCharsets;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -23,9 +22,6 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.*;
 import org.apache.commons.io.IOUtils;
-
-import java.util.Arrays;
-import main.App;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class monedaJSON{
    public static HashMap<String, monedaClase> MapaMonedas;
@@ -46,8 +42,10 @@ public abstract class monedaJSON{
       jsonFile = jsonPath.toFile();
       if(!jsonFile.exists()){
          ArrayList<monedaClase> monedasBases = new ArrayList<>();
-         monedasBases.add(new monedaClase("Argentine Peso", "ARG", 207.83));
+         monedasBases.add(new monedaClase("Argentine Peso", "ARG", 0.0048));
          monedasBases.add(new monedaClase("United States Dollar", "USD", 1));
+         monedasBases.add(new monedaClase("Euro", "EUR", 1.08));
+         monedasBases.add(new monedaClase("Mexican Peso", "MXN", 0.055));
          monedaJSON.makeJsonFile(monedasBases);
       }
       MapaMonedas = getJsonAsMap();
@@ -172,8 +170,6 @@ public abstract class monedaJSON{
       }
    }
 
-   //TODO: hacer q sirva
-   //TODO: poder hacer q esto no de null
    public static HashMap<String, monedaClase> getJsonAsMap(){
       HashMap<String, monedaClase> monedaMap = new HashMap<>();
       try(InputStream inputStream = new FileInputStream(jsonFile)){
