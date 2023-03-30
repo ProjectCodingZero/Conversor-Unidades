@@ -17,8 +17,8 @@ import java.awt.Cursor.*;
 import java.util.Collection;
 import java.awt.Point;
 import java.util.*;
-
-
+import java.net.*;
+import java.io.File;
 import main.components.mainframe;
 import main.conversores.moneda;
 import main.json.monedaClase;
@@ -28,20 +28,11 @@ import java.util.logging.Logger;
 import java.util.logging.FileHandler;
 
 public class App {
-    public static final Logger LOGGER = Logger.getLogger(App.class.getName());
-    public static FileHandler fileHandler;
-    public static String[] Frames = {"mainFrame", "distanciaFrame"};
-    public static String Frame;
+    public static final String[] Conversores = {"Conversor Distancia", "Conversor Moneda"};
+    public static final String[] Frames = {"mainFrame", "distanciaFrame"};
+    
+    
     public static void main(String[] args){
-      try{
-        fileHandler = new FileHandler("myapp.log");
-      }catch(IOException E){
-        LOGGER.severe("No se pudo crear el archivo");
-      }
-      System.out.println(monedaJSON.ArrayMoneda);
-      LOGGER.addHandler(fileHandler);
-      //System.out.println(monedaJSON.readSpecifyJson(moneda.getNombre()));
-      //System.out.println(monedaJSON.MapaMoneda);
       try {
           UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
       }catch (Exception ex) {
@@ -52,19 +43,8 @@ public class App {
       mainframe main = new mainframe(mousePosition, Tamano);
       main.menuAdding();
       main.showGUI();
-      //distanciaFrame DFrame = new distanciaFrame();
-      /*
-      distancia metros2 = new distancia("milimetros");
-      System.out.println(distancia.convertirUnidad(metros1, metros2, 153));
-      System.out.println(distancia.convertirUnidad(metros2, metros1, 153));
-      moneda moneda1 = new moneda("EUR");
-      moneda moneda2= new moneda("USD");
-      System.out.println(distancia.convertirUnidad(moneda1, moneda2, 153));   
-      System.out.println(distancia.convertirUnidad(moneda2, moneda1, 153));
-      */
-      //distancia metros1 = new distancia("metros");  
     }
-
+    /*
     private static void menuAdding(JFrame frame){  
 
       MenuBar menuBar = new MenuBar();
@@ -81,4 +61,5 @@ public class App {
         frame.setSize(300, 200);
         frame.setVisible(true);
     }
+   */
 }

@@ -1,18 +1,16 @@
 package main.components;
-
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import main.json.monedaJSON;
+import main.App;
 public final class mainframe extends JFrame implements GUI{
    public static final long serialVersionUID = 160320230150L;
    private JPanel mainpanel;
-   private JLabel label;
    private JButton buttonAceptar;
    private JComboBox<String> JCBConversores;
-   private String[] Conversores = {"Conversor Distancia"};
-   //private String[] Conversores = {monedaJSON.ArrayMoneda.get(0).getNombre(), monedaJSON.ArrayMoneda.get(1).getNombre()};
-   private ImageIcon menuIcon = new ImageIcon("src\\main\\resources\\menuIcon.png");
+   private ImageIcon menuIcon = new ImageIcon("src\\com\\main\\resourses\\menuIcon.png");
    
    public mainframe(Point posicion, Dimension tamano) {
       super("Menu");
@@ -22,7 +20,7 @@ public final class mainframe extends JFrame implements GUI{
       // Crear y configurar los componentes Swing
       mainpanel = new JPanel(new GridLayout(3, 3, 1, 1));
       mainpanel.setBounds(posicion.x, posicion.y, tamano.width, tamano.height);
-      JCBConversores = new JComboBox<String>(Conversores);
+      JCBConversores = new JComboBox<String>(App.Conversores);
       JCBConversores.setSelectedItem(null);
       JCBConversores.setEditable(false);
       //JCBConversores.setBounds(200, 100, 60, 70);
@@ -30,9 +28,7 @@ public final class mainframe extends JFrame implements GUI{
       buttonAceptar.setBounds(100, 100, 60, 70);
       // Agregar los componentes al mainpanel
       // Crear una lista de opciones
-      /*String[] opcionesLista = {"Conversor Moneda", "Conversor Distancia"};
-      opciones = new JComboBox<>(opcionesLista);
-      */
+      
       // Configurar el tamaño y la visibilidad de la ventana principal
       
       mainpanel.add(buttonAceptar, 0, 0);
@@ -46,17 +42,24 @@ public final class mainframe extends JFrame implements GUI{
       add(mainpanel);
       buttonAceptar.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
+            Point Newposicion = mainframe.super.getLocation();
+            Dimension NewTamano = new Dimension(getSize());;
+            dispose();
             switch(JCBConversores.getSelectedIndex()){
                case 0:
-                  Point Newposicion = mainframe.super.getLocation();
-                  Dimension NewTamano = new Dimension(getSize());;
-                  dispose();
-                  JOptionPane.showMessageDialog(null, "Ha ingresado al conversor de distancia");
+                  JOptionPane.showMessageDialog(null, "Ha ingresado al " + App.Conversores[0], "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
                   distanciaFrame DFrame = new distanciaFrame(Newposicion, NewTamano);
                   DFrame.menuAdding();
                   DFrame.showGUI();
                   break;
+               case 1:
+                  JOptionPane.showMessageDialog(null, "Ha ingresado al " + App.Conversores[1], "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+                  monedaFrame MFrame = new monedaFrame(Newposicion, NewTamano);
+                  MFrame.menuAdding();
+                  MFrame.showGUI();
+                  break;
                default:
+                  JOptionPane.showMessageDialog(null, "No se ha encontrado la opcion", "Error 404", JOptionPane.ERROR_MESSAGE);
                   break;
             }
       

@@ -1,114 +1,56 @@
 package main.conversores;
-import java.lang.reflect.Array;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.lang.Math;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.math.MathContext;
-import java.math.BigDecimal;
-import main.json.monedaClase;
-import main.json.monedaJSON;
 
+import java.util.Map;
+import java.util.HashMap;
+import main.json.*;
+import java.text.DecimalFormat;
+
+//Monedas basadas en dolar
 public final class moneda extends conversorBase{
-	public final static String[] nombresArray;
-	private abreviaturaDinero unidadActual;
-	private abreviaturaDinero.nombreDinero nombreActual;
-	private String abreviatura;
-	private HashMap<String, Double> MapaUnidad;
-	
-	static{
-		abreviaturaDinero.nombreDinero[] enumNombres = abreviaturaDinero.nombreDinero.values();
-		nombresArray = enumArreglado(enumNombres);
-		abreviaturaDinero[] enumAbreviatura = abreviaturaDinero.values();
-	}
+	public static HashMap<String, String> monedaRelacion = NombreAndAbreviatura();
+	private String abreviatura; 
+
 
 	public moneda(){
-		this.unidadActual = abreviaturaDinero.EstablecerUnidad("USD");
-		this.unidadEstablecida();
-	}
-	public moneda(String unidad){
-		this.unidadActual = abreviaturaDinero.EstablecerUnidad(unidad);
-		this.unidadEstablecida();
-	}
-	public HashMap<String, Double> getMapaUnidad(){
-		return this.MapaUnidad;
-	}
-	private void setMapaUnidad(HashMap<String, Double> mapaUnidad){
-		this.MapaUnidad = mapaUnidad;
+		this("United States Dollar");
 	}
 
-	private enum abreviaturaDinero{
-		USD,
-		ARG,
-		EUR,
-		MXN;
-		private enum nombreDinero{
-			United_States_Dollar,
-			Argentine_Peso,
-			Euro,
-			Mexican_Peso;
-		}
-		public static final double DOLAR = 1;
-		private static final abreviaturaDinero EstablecerUnidad(String unidad){
-			try{
-            return abreviaturaDinero.valueOf(unidad);
-         }
-         catch(IllegalArgumentException noUnidad){
-            return abreviaturaDinero.USD;
-         }
-		}
-		private static final nombreDinero setNombre(String nombre){
-			String tempName = nombre.replace(" ", "_");
-			try{
-            return nombreDinero.valueOf(tempName);
-         }
-         catch(IllegalArgumentException noUnidad){
-            return nombreDinero.United_States_Dollar;
-         }
-		}
+	public moneda(String nombre){
+		super.setNombre(monedaJSON.MapaMonedas.get(nombre).getNombre());
+		this.unidadEstablecida();
 	}
 
-	private static String[] enumArreglado(abreviaturaDinero.nombreDinero[] nombres){
-      String[] unidadStrings = new String[nombres.length];
-      for(int i = 0; i < unidadStrings.length; i++){
-         unidadStrings[i] = nombres[i].name();
-      }
-      return unidadStrings;
-   }
+	public static String getMapaAbreviatura(String nombre){
+		return monedaRelacion.get(nombre);
+	}
+	private static HashMap<String, String> NombreAndAbreviatura(){
+		HashMap<String, String> mapaRelacion = new HashMap<>();
+		for(Map.Entry<String, monedaClase> entry : monedaJSON.MapaMonedas.entrySet()){
+			monedaClase moneda = entry.getValue();
+			mapaRelacion.put(moneda.getNombre(), moneda.getAbreviatura());
+		}
+		return mapaRelacion;
+	}
 	
 	@Override
 	protected void unidadEstablecida(){
-		this.abreviatura = this.unidadActual.toString();
-		super.setNombre(this.unidadActual.toString());
-		DecimalFormat redondeo = new DecimalFormat("#.####");
-		double unidad = monedaJSON.readSpecifyJsonDouble(getNombre());
-		String redondeoString = redondeo.format(unidad);
-	
-		try {
-			unidad = redondeo.parse(redondeoString).doubleValue();
-		} catch (ParseException e) {
-			unidad = monedaJSON.readSpecifyJsonDouble(getNombre());
-		}
-		setUnidad(unidad);
+		monedaClase moneda = monedaJSON.MapaMonedas.get(this.getNombre());
+		super.setUnidad(moneda.getUnidad());
+		abreviatura = moneda.getAbreviatura();
 	}
 	@Override
-   public String convertirUnidad(conversorBase unidadHasta, double unidad){
+		public String convertirUnidad(conversorBase unidadHasta, double unidad){
       double MonedaBase = 1 / unidadHasta.getUnidad();
-		double unidadConvertida = MonedaBase * unidadHasta.getUnidad();
+		double unidadConvertida = MonedaBase * this.getUnidad();
+		DecimalFormat df = new DecimalFormat("#.####");
+		unidadConvertida = Double.parseDouble(df.format(unidadConvertida)); 
       System.out.println(unidadConvertida);
       return "" + unidadConvertida;
       }
 	@Override
-	public void cambiarUnidad(String unidad){
-		this.unidadActual = abreviaturaDinero.EstablecerUnidad(unidad);
+	public void cambiarUnidad(String nombre){
+		super.setNombre(nombre);
 		this.unidadEstablecida();
 	}
-	@Override
-   public void setUnidad(double unidad){
-      setUnidad(monedaJSON.readSpecifyJsonDouble(getNombre()));
-   }
 
 }

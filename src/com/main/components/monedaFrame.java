@@ -1,22 +1,22 @@
 package main.components;
-import main.App;
-import main.conversores.*;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Set;
 
+import main.App;
+import main.conversores.moneda;
 
-public final class distanciaFrame extends JFrame implements GUI, ActionListener{
-   private static final long serialVersionUID = 160320230208L;
-   private final ImageIcon meterIcon  = new ImageIcon("src\\com\\main\\resourses\\meterIcon.png");
-   private JPanel distanciaPanel;
+public class monedaFrame extends JFrame implements GUI, ActionListener{
+   private final ImageIcon moneyIcon = new ImageIcon("src\\com\\main\\resourses\\moneyIcon.png");
+   private JPanel monedaPanel;
    private FlowLayout layoutManager = new FlowLayout(FlowLayout.LEFT, 25 , 50);
-   //private JPanel card1, card2;
-   //Si estas son true el boton para convertir unidades aparecera
-   
+
    private JLabel labelUnidad1, labelUnidad2;
    private JComboBox<String> cbUnidades1, cbUnidades2;
    private JButton JBConvertir;
@@ -29,28 +29,39 @@ public final class distanciaFrame extends JFrame implements GUI, ActionListener{
     * Las clases distancia para junto al String[]
     * Todos el enum como string
     */
-   private String[] dUnidades = distancia.unidadesArray;
-   private distancia distanciaPrimera;
-   private distancia distanciaSegunda;
    
-   public distanciaFrame(Point posicion, Dimension tamano){
-      
-      super(App.Conversores[0]);
+   private moneda monedaPrimera;
+   private moneda monedaSegunda;
+
+   private static String[] monedaUnidades;
+   static{
+      Set<String> keys = moneda.monedaRelacion.keySet();
+      monedaUnidades = new String[keys.size()];
+      int  i = 0;
+      for(String key: keys){
+         monedaUnidades[i] = key;
+         i++;
+      }
+   }
+
+   public monedaFrame(Point posicion, Dimension tamano){
+      super(App.Conversores[1]);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-      distanciaPanel = new JPanel(layoutManager);
-      
+      monedaPanel = new JPanel(layoutManager);
+
       labelUnidad1 = new JLabel("");
       labelUnidad1.setBounds(labelSize);
       labelUnidad1.setForeground(textLabelColor);
       //Configurando los componentes
 
       //Configurando la primera parte de los componentes
-      cbUnidades1 = new JComboBox<String>(dUnidades);
+      cbUnidades1 = new JComboBox<String>(monedaUnidades);
       cbUnidades1.setSelectedItem(null);
       cbUnidades1.setName("CBPrimero");
       cbUnidades1.addActionListener(this);
       ConvertirBase = new JTextField();
+
       AbstractDocument document = (AbstractDocument) ConvertirBase.getDocument();
       document.setDocumentFilter(new onlyNumbersFilter());
       ConvertirBase.setPreferredSize(TextFieldDimension);
@@ -59,7 +70,7 @@ public final class distanciaFrame extends JFrame implements GUI, ActionListener{
       labelUnidad2 = new JLabel("");
       labelUnidad2.setBounds(labelSize);
       labelUnidad2.setForeground(textLabelColor);
-      cbUnidades2 = new JComboBox<String>(dUnidades);
+      cbUnidades2 = new JComboBox<String>(monedaUnidades);
       ConvertirNuevo = new JTextField("Unidad");
       cbUnidades2.setSelectedItem(null);
       cbUnidades2.setName("CBSegundo");
@@ -82,13 +93,12 @@ public final class distanciaFrame extends JFrame implements GUI, ActionListener{
             JBConvertir.setBackground(UIManager.getColor("control"));
          }
       });
-      
       JBConvertir.addActionListener(new  ActionListener() {
          public void actionPerformed(ActionEvent tocarBoton){
             String Numero = ConvertirBase.getText();
             try{
                double num = Double.parseDouble(Numero);
-               String numeroObtenido = distanciaPrimera.convertirUnidad(distanciaSegunda, num);
+               String numeroObtenido = monedaPrimera.convertirUnidad(monedaSegunda, num);
                
                ConvertirNuevo.setText(numeroObtenido);
                JOptionPane.showMessageDialog(null, "El numero " + Numero + " convertido desde " + cbUnidades1.getSelectedItem()
@@ -99,22 +109,21 @@ public final class distanciaFrame extends JFrame implements GUI, ActionListener{
                }
             }
       });
-
       //distanciaPanel.add(labelUnidad1);
       cbUnidades1.setAlignmentX(30);
       cbUnidades1.setAlignmentY(50);
-      distanciaPanel.add(cbUnidades1);
-      distanciaPanel.add(cbUnidades2);
+      monedaPanel.add(cbUnidades1);
+      monedaPanel.add(cbUnidades2);
       layoutManager.setAlignment(FlowLayout.CENTER);
-      distanciaPanel.add(labelUnidad1);
-      distanciaPanel.add(ConvertirBase);
-      distanciaPanel.add(labelUnidad2);
-      distanciaPanel.add(ConvertirNuevo);
+      monedaPanel.add(labelUnidad1);
+      monedaPanel.add(ConvertirBase);
+      monedaPanel.add(labelUnidad2);
+      monedaPanel.add(ConvertirNuevo);
 
       layoutManager.setAlignment(FlowLayout.TRAILING);
-      distanciaPanel.add(JBConvertir);
-      distanciaPanel.setPreferredSize(tamano);
-      distanciaPanel.setLocation(posicion);
+      monedaPanel.add(JBConvertir);
+      monedaPanel.setPreferredSize(tamano);
+      monedaPanel.setLocation(posicion);
    }
    
    public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -122,24 +131,25 @@ public final class distanciaFrame extends JFrame implements GUI, ActionListener{
       JComboBox<String> selectedBox = (JComboBox<String>) e.getSource();
       String nombre = ((JComponent) e.getSource()).getName();
       String unidadSelecionada = (String) selectedBox.getSelectedItem();
-      String abreviatura = distancia.getAbreviatura(unidadSelecionada);
+      String abreviatura = moneda.getMapaAbreviatura(unidadSelecionada);
       
       if(nombre.equals("CBPrimero")){
-         distanciaPrimera = new distancia((String) selectedBox.getSelectedItem());
+         monedaPrimera = new moneda((String) selectedBox.getSelectedItem());
          labelUnidad1.setText(abreviatura);
       }else{
-         distanciaSegunda = new distancia((String) selectedBox.getSelectedItem());
+         monedaSegunda = new moneda((String) selectedBox.getSelectedItem());
          labelUnidad2.setText(abreviatura);
       }
       JBConvertir.setVisible(cbUnidades1.getSelectedItem() != null && cbUnidades2.getSelectedItem() != null);
    }
+
    public void showGUI(){
-      add(distanciaPanel);
+      add(monedaPanel);
       setVisible(true);
-      setIconImage(meterIcon.getImage());
+      setIconImage(moneyIcon.getImage());
       pack();
    }
    public void menuAdding(){
-      
+
    }
 }

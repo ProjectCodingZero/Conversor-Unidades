@@ -12,17 +12,17 @@ public final class distancia extends conversorBase{
    //La unidad actual representa cual es la unidad que se esta usando
    private unidadDistancia unidadActual;
    //Unidad nombre completo con su anotacion
-   private final static unidadDistancia[] unidadEnum;
-   private final static unidadDistancia.unidadAsociada[] unidadAsociada;
 
    //Hacer todo el enum unidadDistancia como un arreglo
+   private static unidadDistancia[] arrayStringNombre;
+   private static unidadDistancia.unidadAsociada[] arrayStringAbrevitura;
    public final static String[] unidadesArray;
    public final static HashMap<String, String> unidadMap;
    static{
-      unidadEnum = unidadDistancia.values();
-      unidadAsociada = unidadDistancia.unidadAsociada.values();
-      unidadesArray = enumArreglado();
-      unidadMap = obtenerUnidadCompleta();
+      arrayStringNombre = unidadDistancia.values();
+      arrayStringAbrevitura = unidadDistancia.unidadAsociada.values();
+      unidadesArray = enumArreglado(arrayStringNombre);
+      unidadMap = obtenerUnidadCompleta(arrayStringAbrevitura);
    }
    public distancia(){
       this("metros");
@@ -30,7 +30,7 @@ public final class distancia extends conversorBase{
    }
    public distancia(String unidad){
       this.unidadActual = unidadDistancia.EstablecerUnidad(unidad);
-      setIndice(Arrays.asList(unidadEnum).indexOf(this.unidadActual));
+      setIndice(Arrays.asList(arrayStringNombre).indexOf(this.unidadActual));
       this.unidadEstablecida();
    }
    public static String getAbreviatura(String unidadDistancia){
@@ -122,22 +122,22 @@ public final class distancia extends conversorBase{
    }
 
    //Crea un string[] para convertir todo unidadEnum en un array de strings 
-   private static String[] enumArreglado(){
-      String[] unidadStrings = new String[unidadEnum.length];
+   private static String[] enumArreglado(unidadDistancia[] nombreUnidad){
+      String[] unidadStrings = new String[nombreUnidad.length];
       for(int i = 0; i < unidadStrings.length; i++){
-         unidadStrings[i] = unidadEnum[i].name();
+         unidadStrings[i] = nombreUnidad[i].name();
       }
       return unidadStrings;
    }
-   private static HashMap<String, String> obtenerUnidadCompleta(){
-      if(unidadEnum.length != unidadAsociada.length){
+   private static HashMap<String, String> obtenerUnidadCompleta(unidadDistancia.unidadAsociada[] AbreviaturaUnidad){
+      if(arrayStringNombre.length != AbreviaturaUnidad.length){
          EnumInigualesExcepcion excepcion  = new EnumInigualesExcepcion("Los enums no son iguales");
          throw excepcion;
       }
       HashMap<String, String> Maping = new HashMap<>();
-      for(int i = 0; i < unidadEnum.length; i++){
+      for(int i = 0; i < arrayStringNombre.length; i++){
          
-         Maping.put(unidadEnum[i].name(), unidadAsociada[i].name());
+         Maping.put(arrayStringNombre[i].name(), AbreviaturaUnidad[i].name());
       }
       return Maping;
    }
