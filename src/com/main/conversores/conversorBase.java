@@ -18,8 +18,6 @@ public abstract class conversorBase {
    public double getUnidad(){
       return this.unidad;
    }
-
-   //TODO borrar
    public final void setIndice(int indice){
       this.indice = indice;
    }

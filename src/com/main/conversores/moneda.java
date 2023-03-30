@@ -39,14 +39,12 @@ public final class moneda extends conversorBase{
 		abreviatura = moneda.getAbreviatura();
 	}
 	@Override
-		public String convertirUnidad(conversorBase unidadHasta, double unidad){
-      double MonedaBase = 1 / unidadHasta.getUnidad();
-		double unidadConvertida = MonedaBase * this.getUnidad();
+	public String convertirUnidad(conversorBase unidadHasta, double unidad){
+      	double MonedaBase = 1 / unidadHasta.getUnidad();
+		double unidadConvertida = unidad * MonedaBase * this.getUnidad();
 		DecimalFormat df = new DecimalFormat("#.####");
-		unidadConvertida = Double.parseDouble(df.format(unidadConvertida)); 
-      System.out.println(unidadConvertida);
-      return "" + unidadConvertida;
-      }
+		return df.format(unidadConvertida);
+    }
 	@Override
 	public void cambiarUnidad(String nombre){
 		super.setNombre(nombre);

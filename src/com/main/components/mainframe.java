@@ -44,15 +44,17 @@ public final class mainframe extends JFrame implements GUI{
          public void actionPerformed(ActionEvent e) {
             Point Newposicion = mainframe.super.getLocation();
             Dimension NewTamano = new Dimension(getSize());;
-            dispose();
+            
             switch(JCBConversores.getSelectedIndex()){
                case 0:
+                  dispose();
                   JOptionPane.showMessageDialog(null, "Ha ingresado al " + App.Conversores[0], "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
                   distanciaFrame DFrame = new distanciaFrame(Newposicion, NewTamano);
                   DFrame.menuAdding();
                   DFrame.showGUI();
                   break;
                case 1:
+                  dispose();
                   JOptionPane.showMessageDialog(null, "Ha ingresado al " + App.Conversores[1], "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
                   monedaFrame MFrame = new monedaFrame(Newposicion, NewTamano);
                   MFrame.menuAdding();

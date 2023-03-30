@@ -92,7 +92,7 @@ public final class distanciaFrame extends JFrame implements GUI, ActionListener{
                
                ConvertirNuevo.setText(numeroObtenido);
                JOptionPane.showMessageDialog(null, "El numero " + Numero + " convertido desde " + cbUnidades1.getSelectedItem()
-               + "(" + labelUnidad1.getText() +") a " + cbUnidades2.getSelectedItem() +"(" + labelUnidad1.getText() + ") es igual a " + numeroObtenido);
+               + "(" + labelUnidad1.getText() +") a " + cbUnidades2.getSelectedItem() +"(" + labelUnidad2.getText() + ") es igual a " + numeroObtenido);
                }
             catch(NumberFormatException numberExcepcion){
                numberExcepcion.getStackTrace();
@@ -101,6 +101,8 @@ public final class distanciaFrame extends JFrame implements GUI, ActionListener{
       });
 
       //distanciaPanel.add(labelUnidad1);
+      distanciaPanel.setLocation(posicion);
+      distanciaPanel.setPreferredSize(tamano);
       cbUnidades1.setAlignmentX(30);
       cbUnidades1.setAlignmentY(50);
       distanciaPanel.add(cbUnidades1);
@@ -113,8 +115,7 @@ public final class distanciaFrame extends JFrame implements GUI, ActionListener{
 
       layoutManager.setAlignment(FlowLayout.TRAILING);
       distanciaPanel.add(JBConvertir);
-      distanciaPanel.setPreferredSize(tamano);
-      distanciaPanel.setLocation(posicion);
+      
    }
    
    public void actionPerformed(java.awt.event.ActionEvent e) {

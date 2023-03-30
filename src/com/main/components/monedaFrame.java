@@ -102,14 +102,15 @@ public class monedaFrame extends JFrame implements GUI, ActionListener{
                
                ConvertirNuevo.setText(numeroObtenido);
                JOptionPane.showMessageDialog(null, "El numero " + Numero + " convertido desde " + cbUnidades1.getSelectedItem()
-               + "(" + labelUnidad1.getText() +") a " + cbUnidades2.getSelectedItem() +"(" + labelUnidad1.getText() + ") es igual a " + numeroObtenido);
+               + "(" + labelUnidad1.getText() +") a " + cbUnidades2.getSelectedItem() +"(" + labelUnidad2.getText() + ") es igual a " + numeroObtenido);
                }
             catch(NumberFormatException numberExcepcion){
                numberExcepcion.getStackTrace();
                }
             }
       });
-      //distanciaPanel.add(labelUnidad1);
+      monedaPanel.setPreferredSize(tamano);
+      monedaPanel.setLocation(posicion);
       cbUnidades1.setAlignmentX(30);
       cbUnidades1.setAlignmentY(50);
       monedaPanel.add(cbUnidades1);
@@ -122,8 +123,7 @@ public class monedaFrame extends JFrame implements GUI, ActionListener{
 
       layoutManager.setAlignment(FlowLayout.TRAILING);
       monedaPanel.add(JBConvertir);
-      monedaPanel.setPreferredSize(tamano);
-      monedaPanel.setLocation(posicion);
+
    }
    
    public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -134,10 +134,10 @@ public class monedaFrame extends JFrame implements GUI, ActionListener{
       String abreviatura = moneda.getMapaAbreviatura(unidadSelecionada);
       
       if(nombre.equals("CBPrimero")){
-         monedaPrimera = new moneda((String) selectedBox.getSelectedItem());
+         monedaPrimera = new moneda((String) selectedBox.getSelectedItem()); 
          labelUnidad1.setText(abreviatura);
       }else{
-         monedaSegunda = new moneda((String) selectedBox.getSelectedItem());
+         monedaSegunda = new moneda((String) selectedBox.getSelectedItem()); 
          labelUnidad2.setText(abreviatura);
       }
       JBConvertir.setVisible(cbUnidades1.getSelectedItem() != null && cbUnidades2.getSelectedItem() != null);
